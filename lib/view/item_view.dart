@@ -9,6 +9,9 @@ class ItemView extends StatefulWidget {
 }
 
 class _ItemViewState extends State<ItemView> {
+  //
+  // Lista Dinâmica de objetos da classe Contato
+  //
   List<Item> itens = [];
   List<Item> itensFiltrados = [];
 
@@ -22,7 +25,8 @@ class _ItemViewState extends State<ItemView> {
     if (txtFiltro.text.isEmpty) {
       itensFiltrados.addAll(itens); // Inicialize com todos os itens
     } else {
-      filtrarItens(txtFiltro.text); // Filtrar os itens
+      filtrarItens(txtFiltro
+          .text); // Filtrar os itens com base no texto do campo de filtro
     }
 
     return Scaffold(
@@ -36,11 +40,7 @@ class _ItemViewState extends State<ItemView> {
           children: [
             TextField(
               controller: txtFiltro,
-              decoration: const InputDecoration(
-                labelText: 'Pesquisar item',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
-              ),
+              decoration: const InputDecoration(labelText: 'Pesquisar item'),
               onChanged: (value) {
                 filtrarItens(value);
               },
@@ -49,13 +49,15 @@ class _ItemViewState extends State<ItemView> {
             Expanded(
               // Para garantir que a ListView ocupe todo o espaço disponível
               child: ListView.builder(
+                //Quantidade de itens
                 itemCount: itensFiltrados.length,
+
+                //Aparência de cada item
                 itemBuilder: (context, index) {
                   return Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                    color: itensFiltrados[index].comprado
+                        ? Colors.greenAccent
+                        : Colors.white,
                     child: ListTile(
                       title: Text(itensFiltrados[index].nome),
                       subtitle: Text(itensFiltrados[index].quantidade),
@@ -64,25 +66,22 @@ class _ItemViewState extends State<ItemView> {
                         children: [
                           IconButton(
                             onPressed: () {
+                              // Implemente a lógica de edição aqui
                               _editarItem(context, index);
                             },
                             icon: const Icon(Icons.edit),
                           ),
                           IconButton(
                             onPressed: () {
+                              // Implemente a lógica de exclusão aqui
                               _excluirItem(context, index);
                             },
                             icon: const Icon(Icons.delete),
                           ),
                           IconButton(
-                            icon: Icon(
-                              itensFiltrados[index].comprado
-                                  ? Icons.shopping_cart
-                                  : Icons.shopping_cart_outlined,
-                              color: itensFiltrados[index].comprado
-                                  ? Colors.green
-                                  : Colors.grey,
-                            ),
+                            icon: itensFiltrados[index].comprado
+                                ? const Icon(Icons.shopping_cart)
+                                : const Icon(Icons.shopping_cart_outlined),
                             onPressed: () {
                               _mudarCompra(index);
                             },
@@ -111,7 +110,8 @@ class _ItemViewState extends State<ItemView> {
   void filtrarItens(String value) {
     String filtro = value.toLowerCase();
     setState(() {
-      itensFiltrados.clear();
+      itensFiltrados
+          .clear(); // Limpar a lista antes de adicionar os itens filtrados
       itensFiltrados.addAll(itens.where((item) {
         return item.nome.toLowerCase().startsWith(filtro);
       }).toList());
@@ -126,6 +126,8 @@ class _ItemViewState extends State<ItemView> {
   }
 
   void _editarItem(BuildContext context, int index) {
+    // Implemente a lógica de edição aqui
+    // Exemplo:
     int newIndex = itens.indexWhere((item) => item == itensFiltrados[index]);
     _exibirPopupAdicionarItem(
         context, itens[newIndex].nome, itens[newIndex].quantidade, newIndex);
@@ -202,6 +204,7 @@ class _ItemViewState extends State<ItemView> {
 
                   Navigator.of(context).pop();
                 } else {
+                  // Mostrar um alerta ou uma mensagem informando que os campos não podem estar vazios
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Por favor, preencha todos os campos.'),

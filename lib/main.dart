@@ -6,6 +6,8 @@ import 'package:flutter_projeto_p1/view/item_view.dart';
 import 'package:flutter_projeto_p1/view/lista_view.dart';
 import 'package:flutter_projeto_p1/view/login_view.dart';
 import 'package:flutter_projeto_p1/view/recuperar_senha_view.dart';
+import 'package:flutter_projeto_p1/view/sobre_view.dart';
+
 
 void main() {
   runApp(
@@ -31,6 +33,7 @@ class MainApp extends StatelessWidget {
         'login': (context) => LoginView(),
         'cadastro': (context) => CadastroView(),
         'recuperar': (context) => RecuperarSenhaView(),
+        'sobre': (context) => SobreView(),
       },
     );
   }

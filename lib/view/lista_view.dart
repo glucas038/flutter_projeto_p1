@@ -41,51 +41,27 @@ class _ListaViewState extends State<ListaView> {
                     Navigator.pushNamed(context, 'item',
                         arguments: enviarItens);
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.greenAccent),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        listas[index].nome,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                  child: ListTile(
+                    title: Text(listas[index].nome),
+                    subtitle: Text('Quantidade de itens'),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            // Implemente a lógica de edição aqui
+                            _editarItem(context, index);
+                          },
+                          icon: Icon(Icons.edit),
                         ),
-                      ),
-                      subtitle: Text(
-                        'Quantidade de itens',
-                        style: TextStyle(
-                          fontStyle: FontStyle.italic,
+                        IconButton(
+                          onPressed: () {
+                            // Implemente a lógica de exclusão aqui
+                            _excluirItem(context, index);
+                          },
+                          icon: Icon(Icons.delete),
                         ),
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              // Implemente a lógica de edição aqui
-                              _editarItem(context, index);
-                            },
-                            icon: Icon(
-                              Icons.edit,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              // Implemente a lógica de exclusão aqui
-                              _excluirItem(context, index);
-                            },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ],
-                      ),
+                      ],
                     ),
                   ),
                 ),
@@ -101,7 +77,6 @@ class _ListaViewState extends State<ListaView> {
         child: Icon(Icons.add),
         backgroundColor: Colors.greenAccent,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 

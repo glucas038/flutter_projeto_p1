@@ -197,7 +197,13 @@ class _LoginViewState extends State<LoginView> {
                   child: Text(
                     'Cadastrar',
                     style: TextStyle(fontSize: 28),
-                  ))
+                  )),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'sobre');
+                },
+                child: const Text("Sobre o app"),
+              ),
             ],
           ),
         ),

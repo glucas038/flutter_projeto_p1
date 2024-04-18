@@ -13,6 +13,7 @@ dependencies:
   cpf_cnpj_validator: ^2.0.0
   mask_text_input_formatter: ^2.9.0
   email_validator: ^2.1.17
+  url_launcher: ^6.2.6
 
 dev_dependencies:
   flutter_test:
@@ -22,4 +23,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - lib/imagens/
+    - lib/imagens/compras.png
+    - lib/imagens/insta.png
